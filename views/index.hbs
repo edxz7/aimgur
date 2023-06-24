@@ -1,2 +1,11 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+{{#each rows}}
+<div class="row mb-3" data-masonry='{"percentPosition": true }'>
+    {{#each columns}}
+    <div class="{{columnClass}}">
+        {{#each cards}}
+            {{> card}}
+        {{/each}}
+    </div>
+    {{/each}}
+</div>
+{{/each}}
