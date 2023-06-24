@@ -9,7 +9,7 @@ require("./db");
 // https://www.npmjs.com/package/express
 const express = require("express");
 
-// Handles the handlebars
+// Handles the handlebars.
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
@@ -20,7 +20,7 @@ require("./config")(app);
 
 const capitalize = require("./utils/capitalize");
 const projectName = "aimgur";
-
+hbs.registerPartials(__dirname + '/views/partials');
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
 // 👇 Start handling routes here
