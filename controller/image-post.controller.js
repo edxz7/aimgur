@@ -1,5 +1,24 @@
 const ImagePost = require('../models/ImagePost.model'); 
 
+
+const getOneImagePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log('id: ', id);
+    const { 
+      _id,
+      imageUrl,
+      imageName,
+      title,
+      content
+     } = await ImagePost.findById(id);
+    const size = 'col-8'
+    res.render('post/detail-image-post', { _id, imageUrl, imageName, title, content, size }) 
+  } catch (error) {
+    next(error)
+  }
+}
+
 const getAllImagePosts = async (req, res, next) => {
 
     const cardArray = await ImagePost.find();
@@ -73,5 +92,6 @@ function generateRandomArray() {
 }
 
 module.exports = {
-    getAllImagePosts
+    getAllImagePosts,
+    getOneImagePost
 };

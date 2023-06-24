@@ -1,0 +1,16 @@
+<div class="container d-flex justify-content-center {{size}}">
+    <div class="vstack">
+        {{>card}}
+        {{#if isLoggedIn}}
+        <form action="/comment/create/{{_id}}" method="POST" class="{{size}}">
+            <span class="input-group-text d-flex justify-content-center">Write a comment</span>
+            <div class="input-group">
+                <textarea class="form-control" aria-label="comment" name="bodyContent"></textarea>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </form>
+        {{/if}}
+    </div>
+</div>
