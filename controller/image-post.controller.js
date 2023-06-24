@@ -1,6 +1,27 @@
 const ImagePost = require('../models/ImagePost.model'); 
 
 
+const createImagePost = async (req, res, next) => {
+  const { title, content } = req.body;
+  const { _id: userId  } = req.session.currentUser;
+  console.log('req.file: ', req.file);
+
+  if(!req.file) {
+    next(new Error('No file uploaded'))
+  }
+
+  const imagePost = await ImagePost.create({
+    userId,
+    title,
+    content,
+    imageName: title,
+    imageUrl: req.file.path
+  });
+  
+  res.redirect(`/image-post/${imagePost._id}/detail`)
+}
+
+
 const getOneImagePost = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -10,10 +31,31 @@ const getOneImagePost = async (req, res, next) => {
       imageUrl,
       imageName,
       title,
-      content
-     } = await ImagePost.findById(id);
+      content,
+      comments,
+      userId: userIdPost, // este es el user id de la persona que creo el post
+      createdAt
+     } = await ImagePost.findById(id)
+     .populate('userId')
+     .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId', // es el userId de la persona que creo el comentario
+        model: 'User'
+      }
+     })
+     console.log('este es el user id del usuario que creo el post', userIdPost);
+     console.log('comments: ', comments);
     const size = 'col-8'
-    res.render('post/detail-image-post', { _id, imageUrl, imageName, title, content, size }) 
+    res.render('post/detail-image-post', { 
+      _id, 
+      imageUrl, 
+      imageName, 
+      title, 
+      content, 
+      size,
+      comments 
+    }) 
   } catch (error) {
     next(error)
   }
@@ -93,5 +135,6 @@ function generateRandomArray() {
 
 module.exports = {
     getAllImagePosts,
-    getOneImagePost
+    getOneImagePost,
+    createImagePost
 };

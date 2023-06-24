@@ -4,6 +4,7 @@
         {{#if isLoggedIn}}
         <form action="/comment/create/{{_id}}" method="POST" class="{{size}}">
             <span class="input-group-text d-flex justify-content-center">Write a comment</span>
+            {{!-- { bodyContent: 'y aca va el comentario que esta haciendo el sujeto que lo escribe' } --}}
             <div class="input-group">
                 <textarea class="form-control" aria-label="comment" name="bodyContent"></textarea>
             </div>
@@ -12,5 +13,18 @@
             </div>
         </form>
         {{/if}}
+        {{#each comments}}
+            <div class="card {{size}}">
+                <div class="card-header">
+                    <h5 class="card-title">username: {{userId.username}}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{body}}</p>
+                </div>
+                 <div class="card-footer text-body-secondary">
+                    {{createdAt}}
+                 </div>
+            </div>
+        {{/each}}
     </div>
 </div>

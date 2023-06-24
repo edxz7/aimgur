@@ -22,7 +22,9 @@
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <button class="nav-link active btn-round bg-success" aria-current="page" href="#">Create</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+              Create
+            </button>          
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/auth/logout">Logout</a>
@@ -43,6 +45,54 @@
       {{/if}}
     </div>
   </nav>
+
+
+  {{!-- Modal code  --}}
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {{!-- { picture: example.png, title: 'el titulo del post', content: 'el contenido del post' } --}}
+      <form action="/image-post/create" method="POST" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createModalLabel">Create Image Post</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {{!-- title input  --}}
+            <div class="input-group has-validation mb-3">
+              <span class="input-group-text">Title</span>
+              <div class="form-floating {{invalidClass}}">
+                <input type="text" class="form-control {{invalidClass}}" id="floatingInputPostImageTitle" placeholder="title" name="title" required>
+                <label for="floatingInputPostImageTitle">Post Title</label>
+              </div>
+              <div class="invalid-feedback">
+                {{errorMessage}}
+              </div>
+            </div>
+            {{!-- content input  --}}
+            <div class="input-group mb-3">
+              <span class="input-group-text">Post content</span>
+              <textarea class="form-control" aria-label="With textarea" name="content"></textarea>
+            </div>
+            {{!-- File input  --}}
+            <div class="input-group mb-3">
+              <input type="file" class="form-control" id="inputGroupFile02" name="picture">
+              <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
     {{{body}}}
 
