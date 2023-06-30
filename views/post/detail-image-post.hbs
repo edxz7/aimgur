@@ -1,6 +1,6 @@
 <div class="container d-flex justify-content-center {{size}}">
     <div class="vstack">
-        {{>card}}
+        {{> card user=userPostInfo }}
         {{#if isLoggedIn}}
         <form action="/comment/create/{{_id}}" method="POST" class="{{size}}">
             <span class="input-group-text d-flex justify-content-center">Write a comment</span>
@@ -13,6 +13,7 @@
             </div>
         </form>
         {{/if}}
+        <p class="bg-dark" style="color: aliceblue;">Comments: </p>
         {{#each comments}}
             <div class="card {{size}}">
                 <div class="card-header">

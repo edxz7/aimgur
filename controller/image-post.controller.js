@@ -33,7 +33,7 @@ const getOneImagePost = async (req, res, next) => {
       title,
       content,
       comments,
-      userId: userIdPost, // este es el user id de la persona que creo el post
+      userId: userPostInfo, // este es el user id de la persona que creo el post
       createdAt
      } = await ImagePost.findById(id)
      .populate('userId')
@@ -44,7 +44,7 @@ const getOneImagePost = async (req, res, next) => {
         model: 'User'
       }
      })
-     console.log('este es el user id del usuario que creo el post', userIdPost);
+     console.log('este es el user que creo el post', userPostInfo);
      console.log('comments: ', comments);
     const size = 'col-8'
     res.render('post/detail-image-post', { 
@@ -54,7 +54,8 @@ const getOneImagePost = async (req, res, next) => {
       title, 
       content, 
       size,
-      comments 
+      comments,
+      userPostInfo 
     }) 
   } catch (error) {
     next(error)
