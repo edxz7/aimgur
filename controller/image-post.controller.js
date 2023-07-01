@@ -121,8 +121,7 @@ const getAllImagePosts = async (req, res, next) => {
 
       console.log('data: ', data);
       console.log('rows: ', data.rows);
-      console.log('columns: ', data.rows[0].columns.length);
-      console.log('columns: ', data.rows[0].columns);
+
     // const imagePost = await ImagePost().find();
     res.render('index', { rows: data.rows })
 }
